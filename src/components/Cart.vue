@@ -1,12 +1,11 @@
 <template>
     <div v-if="cart.length">
         <b-table striped hover :items="cart" :fields="fields">
-            <template slot="actions" slot-scope="cell">
+            <template v-slot:cell(actions)="data">
                 <b-button
                     size="sm"
                     variant="danger"
-                    @click.stop="removeProductFromCart(cell.items)"
-                >
+                    @click.stop="removeProductFromCart(data.item)">
                     Eliminar
                 </b-button>
             </template>
@@ -23,7 +22,7 @@ import { mapGetters, mapMutations, mapState } from "vuex";
 export default {
   data() {
     return {
-      fields: ['name', 'qty', 'price', 'actions']
+      fields: ['name', 'qty', 'price', {key: 'actions', label: 'Action' }]
     }
   },
   computed: {
